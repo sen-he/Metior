@@ -167,6 +167,7 @@ def Metior(weeks, percentile, start_point):
          
 
     else:
+        percentile = int(percentile)
         for i in range(two_weeks_loop):
             #set the block interval for block bootstrap
             b_star = optimal_block_length(test_data[:intervalSize*(i+1)])
