@@ -8,7 +8,7 @@ Following supporting materials are included in the package:
 
 1. &quot;ase2021-paper1.pdf&quot;, the PDF file of our accepted paper.
 2. &quot;README.md&quot; is this file.
-3. &quot;STATUS.md&quot; stats we are applying for &quot;Available&quot;, and why we are applying for them.
+3. &quot;STATUS.md&quot; stats we are applying for &quot;Available Badge&quot;, and why we are applying for it.
 4. &quot;LICENSE.md&quot; contains the description of the distribution rights.
 5. &quot;INSTALL.MD&quot; is the simplified instruction for executing our code.
 6. &quot;INSTALL.pdf&quot; is the detailed instruction for executing our code.
