@@ -152,7 +152,6 @@ def Metior(weeks, percentile, start_point):
             if (errRate <= 1-object_accu):
                 meanSize = intervalSize*(i+2)
                 meanVal = np.mean(test_data[:meanSize])
-                meanStop = 1
                 print("The Mean value of the dataset: ", \
                       round(meanVal, 4))
                 return meanVal
@@ -161,42 +160,39 @@ def Metior(weeks, percentile, start_point):
             else:
                 meanSize = two_weeks_count
                 meanVal = np.mean(test_data[:meanSize])
-                meanStop = 0
                 print("For average:")
                 print("Not able to stable. The Mean value of two weeks' data is", \
                       round(meanVal, 4))
                 return meanVal
          
 
-
-    for i in range(two_weeks_loop):
-        #set the block interval for block bootstrap
-        b_star = optimal_block_length(test_data[:intervalSize*(i+1)])
-        block_length = math.ceil(b_star[0].b_star_cb)
-        if block_length_bound >= block_length:
-            block_length = block_length_bound
-        errRate = block_bootstrap(test_data[:intervalSize*(i+1)], 
+    else:
+        for i in range(two_weeks_loop):
+            #set the block interval for block bootstrap
+            b_star = optimal_block_length(test_data[:intervalSize*(i+1)])
+            block_length = math.ceil(b_star[0].b_star_cb)
+            if block_length_bound >= block_length:
+                block_length = block_length_bound
+            errRate = block_bootstrap(test_data[:intervalSize*(i+1)], 
                          test_data[:intervalSize*(i+2)], 
                          1000, percentile, block_length)
-        #initial 3 hours vs 6 hours
-        if (errRate <= 1-object_accu):
-            percSize = intervalSize*(i+2)
-            percVal = np.percentile(test_data[:percSize], percentile)
-            percStop = 1
-            print("The ", percentile," percentile value of the dataset: ", \
-                  round(percVal, 4))
-            return percVal
-        elif(errRate > 1-object_accu and i < (two_weeks_loop-1)):
-            continue
-        else:
-            percSize = two_weeks_count
-            percVal = np.percentile(test_data[:percSize], percentile)
-            percStop = 0
-            print("For 90-Tile:")
-            print("Not able to stable. " "The ", 
-                  percentile,"-ile value of two weeks' data is", \
+            #initial 3 hours vs 6 hours
+            if (errRate <= 1-object_accu):
+                percSize = intervalSize*(i+2)
+                percVal = np.percentile(test_data[:percSize], percentile)
+                print("The ", percentile," percentile value of the dataset: ", \
                       round(percVal, 4))
-            return percVal
+                return percVal
+            elif(errRate > 1-object_accu and i < (two_weeks_loop-1)):
+                continue
+            else:
+                percSize = two_weeks_count
+                percVal = np.percentile(test_data[:percSize], percentile)
+                print("For 90-Tile:")
+                print("Not able to stable. " "The ", 
+                      percentile,"-ile value of two weeks' data is", \
+                          round(percVal, 4))
+                return percVal
                
 
 
